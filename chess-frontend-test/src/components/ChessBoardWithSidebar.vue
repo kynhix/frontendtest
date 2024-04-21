@@ -17,9 +17,10 @@ const observer = new ResizeObserver(onResize);
 
 const onClickBoard = ((event: MouseEvent) => {
   const boardDimension = boardRef.value.getBoundingClientRect().width;
-  const column = String.fromCharCode('a'.charCodeAt(0) + Math.trunc(event.offsetX / Math.max(boardDimension, 1) * 8));
+  const column = Math.trunc(event.offsetX / Math.max(boardDimension, 1) * 8);
+  const columnChar = String.fromCharCode('a'.charCodeAt(0) + column);
   const row = 8 - Math.trunc(event.offsetY / Math.max(boardDimension, 1) * 8);
-  const coord = column.concat(row.toString());
+  const coord = columnChar.concat(row.toString());
 
   selectedCoordHistory.value.unshift(coord);
   lastSelectedCoord.value = coord;
@@ -32,8 +33,6 @@ onMounted(() => {
 onUnmounted(() => {
   observer.unobserve(boardContainerRef.value);
 })
-
-
 </script>
 
 <template>
@@ -95,11 +94,19 @@ onUnmounted(() => {
 }
 
 #board-container {
+  display: flex;
+  justify-content: center;
   overflow: hidden;
+  flex-grow: 1;
   aspect-ratio: 1/1;
   width: 100%;
   max-width: calc(100vh - 2rem);
-  flex-grow: 1;
+}
+
+@media (min-width: 1024px) {
+  #board-container {
+    justify-content: end;
+  }
 }
 
 #board-background {
@@ -113,6 +120,6 @@ onUnmounted(() => {
 #board {
   position: relative;
   width: v-bind(dimension);
-  border-radius: 0.25rem;
+  overflow: hidden;
 }
 </style>

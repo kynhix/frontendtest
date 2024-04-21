@@ -1,7 +1,8 @@
 :root {
   --sidebar-width: 300px;
-  --light-square-color: #aaa;
-  --dark-square-color: #111;
+  --light-square-color: rgb(235, 236, 208);
+  --dark-square-color: rgb(115, 149, 82);
+
 }
 
 *,
@@ -15,7 +16,7 @@
 body {
   min-height: 100vh;
   height: 100vh;
-  color: black;
+  color: rgb(20, 20, 20);
   background: white;
   font-family:
     Inter,
