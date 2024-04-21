@@ -5,6 +5,7 @@ import Sidebar from './Sidebar.vue'
 const boardContainerRef = ref<HTMLDivElement>(null);
 const boardRef = ref<HTMLDivElement>(null);
 const dimension = ref('0px');
+const selectedCoords = ref<Array<string>>([]);
 
 const onResize = (event: ResizeObserverEntry[]) => {
   const { width, height } = event[0].contentRect;
@@ -17,7 +18,8 @@ const onClickBoard = ((event: MouseEvent) => {
   const boardDimension = boardRef.value.getBoundingClientRect().width;
   const column = String.fromCharCode('a'.charCodeAt(0) + Math.trunc(event.offsetX / Math.max(boardDimension, 1) * 8));
   const row = 8 - Math.trunc(event.offsetY / Math.max(boardDimension, 1) * 8);
-  console.log(column, row);
+  const coord = column.concat(row.toString());
+  selectedCoords.value.unshift(coord);
 })
 
 onMounted(() => {
@@ -69,7 +71,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <Sidebar id="sidebar" class="test" />
+    <Sidebar id="sidebar" :clickedCoords="selectedCoords" />
   </div>
 </template>
 
