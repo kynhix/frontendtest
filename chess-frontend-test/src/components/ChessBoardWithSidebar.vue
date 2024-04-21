@@ -7,6 +7,8 @@ const boardRef = ref<HTMLDivElement>(null);
 const dimension = ref('0px');
 const lastSelectedCoord = ref('');
 const selectedCoordHistory = ref<Array<string>>([]);
+const selectedCoordColumn = ref(-1);
+const selectedCoordRow = ref(-1);
 
 const onResize = (event: ResizeObserverEntry[]) => {
   const { width, height } = event[0].contentRect;
@@ -20,10 +22,14 @@ const onClickBoard = ((event: MouseEvent) => {
   const column = Math.trunc(event.offsetX / Math.max(boardDimension, 1) * 8);
   const columnChar = String.fromCharCode('a'.charCodeAt(0) + column);
   const row = 8 - Math.trunc(event.offsetY / Math.max(boardDimension, 1) * 8);
-  const coord = columnChar.concat(row.toString());
-
-  selectedCoordHistory.value.unshift(coord);
-  lastSelectedCoord.value = coord;
+  const coordString = columnChar.concat(row.toString());
+  if (lastSelectedCoord.value == coordString) {
+    return;
+  }
+  selectedCoordHistory.value.unshift(coordString);
+  lastSelectedCoord.value = coordString;
+  selectedCoordColumn.value = column;
+  selectedCoordRow.value = 8 - (row);
 })
 
 onMounted(() => {
@@ -41,6 +47,7 @@ onUnmounted(() => {
       <div id="board" ref="boardRef" @click="onClickBoard">
         <div id="board-background">
           <svg version="1.1" width="100%" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background pattern -->
             <defs>
               <pattern id="Pattern" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
                 <rect x="0" y="0" width="16" height="16" class="light-square"></rect>
@@ -50,6 +57,7 @@ onUnmounted(() => {
               </pattern>
             </defs>
             <rect fill="url(#Pattern)" width="128" height="128"></rect>
+            <!-- Rank and file identifiers  -->
             <text x="12.25" y="126" font-size="3.5" class="light-square">a</text>
             <text x="28.25" y="126" font-size="3.5" class="dark-square">b</text>
             <text x="44.25" y="126" font-size="3.5" class="light-square">c</text>
@@ -68,6 +76,7 @@ onUnmounted(() => {
             <text x="1.5" y="4.25" font-size="3.5" class="dark-square">8</text>
           </svg>
         </div>
+        <div id="selected-square"></div>
       </div>
     </div>
     <Sidebar id="sidebar" :coordHistory="selectedCoordHistory" />
@@ -121,5 +130,14 @@ onUnmounted(() => {
   position: relative;
   width: v-bind(dimension);
   overflow: hidden;
+}
+
+#selected-square {
+  z-index: 1;
+  position: absolute;
+  transform: translate(calc(100% * v-bind(selectedCoordColumn)), calc(100% * v-bind(selectedCoordRow)));
+  aspect-ratio: 1/1;
+  width: 12.5%;
+  background: rgba(255, 0, 0, 0.5);
 }
 </style>

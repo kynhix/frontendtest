@@ -32,6 +32,9 @@ Should be one contiguous scroll on mobile. There should be no separate scroll ba
 of the sidebar when in mobile view. This is a much better UX than having
 to scroll down to the sidebar, and then having to scroll within the sidebar.
 
+When a square is clicked and it is the same as the previous square clicked, it will *not*
+be added to the history.
+
 ## Other
 
 I tend to use flexbox for default display. Flexbox is just amazing.
