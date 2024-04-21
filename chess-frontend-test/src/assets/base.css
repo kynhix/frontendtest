@@ -1,5 +1,7 @@
 :root {
-  --sidebar-width: 400px;
+  --sidebar-width: 300px;
+  --light-square-color: #aaa;
+  --dark-square-color: #111;
 }
 
 *,
@@ -32,4 +34,14 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.light-square {
+  fill: var(--light-square-color);
+  font-weight: 600;
+}
+
+.dark-square {
+  fill: var(--dark-square-color);
+  font-weight: 600;
 }

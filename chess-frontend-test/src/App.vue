@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import ChessBoard from './components/ChessBoard.vue'
-import Sidebar from './components/Sidebar.vue'
 </script>
 
 <template>
-  <main class="layout">
-    <!-- <ChessBoard /> -->
-    <!-- <Sidebar /> -->
+  <main id="layout">
+    <ChessBoard />
   </main>
 </template>
 
 <style scoped>
-.layout {
-  display: flex;
+#layout {
+  padding: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
   flex-flow: row;
   width: 100%;
   height: 100%;
+}
+
+@media (min-width: 1024px) {
+  #layout {
+    padding: 1rem;
+  }
 }
 </style>
