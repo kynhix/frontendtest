@@ -18,10 +18,12 @@ const onResize = (event: ResizeObserverEntry[]) => {
 const observer = new ResizeObserver(onResize);
 
 const onClickBoard = ((event: MouseEvent) => {
-  const boardDimension = boardRef.value.getBoundingClientRect().width;
-  const column = Math.trunc(event.offsetX / Math.max(boardDimension, 1) * 8);
+  const { x, y, width } = boardRef.value.getBoundingClientRect();
+  const realX = event.x - x;
+  const realY = event.y - y;
+  const column = Math.trunc(realX / Math.max(width, 1) * 8);
   const columnChar = String.fromCharCode('a'.charCodeAt(0) + column);
-  const row = 8 - Math.trunc(event.offsetY / Math.max(boardDimension, 1) * 8);
+  const row = 8 - Math.trunc(realY / Math.max(width, 1) * 8);
   const coordString = columnChar.concat(row.toString());
   if (lastSelectedCoord.value == coordString) {
     return;
