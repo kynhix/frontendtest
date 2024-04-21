@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  clickedCoords: Array<string>,
+  coordHistory: Array<string>,
 })
 </script>
 
@@ -9,11 +9,11 @@ const props = defineProps({
     <h1 id="sidebar-title">Selection History</h1>
     <hr>
     <div id="sidebar-history">
-      <p v-if="!clickedCoords || clickedCoords?.length == 0" class="fadein-top-down">Click a coordinate on the boord.
-      </p>
-      <p v-else v-for="(coord, index) in clickedCoords" :key="index - clickedCoords.length"
+      <p v-if="!coordHistory || coordHistory?.length == 0" class="fadein-top-down">Looks like you haven't selected any
+        coordinates yet. Click a coordinate on the board to add it to your history.</p>
+      <p v-else v-for="(coord, index) in coordHistory" :key="coordHistory.length - index"
         class="fadein-top-down fit-content">{{
-          coord
+          `${coordHistory.length - index}. ${coord}`
         }}</p>
     </div>
   </div>
@@ -21,7 +21,7 @@ const props = defineProps({
 
 <style scoped>
 hr {
-  margin: 1rem 0 1rem 0;
+  margin: 1rem;
 }
 
 #sidebar {
@@ -29,10 +29,13 @@ hr {
   height: 100%;
   overflow-x: hidden;
   flex-shrink: 0;
-  padding: 1rem;
   border: solid 1px #aaa;
   border-radius: 0.375rem;
   background: #ddd;
+}
+
+#sidebar-title {
+  margin: 1rem;
 }
 
 #sidebar-history {
@@ -40,7 +43,12 @@ hr {
   overflow-y: auto;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 1rem;
   gap: 0.5rem;
+}
+
+#sidebar-history>p {
+  padding: 0 1rem 0 1rem;
 }
 
 @media (min-width: 1024px) {
@@ -60,7 +68,7 @@ hr {
 }
 
 .fadein-top-down {
-  animation: 0.3s slidein 1;
+  animation: 0.4s slidein 1;
 }
 
 .fit-content {

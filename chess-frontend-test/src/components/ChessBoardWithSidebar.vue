@@ -5,7 +5,8 @@ import Sidebar from './Sidebar.vue'
 const boardContainerRef = ref<HTMLDivElement>(null);
 const boardRef = ref<HTMLDivElement>(null);
 const dimension = ref('0px');
-const selectedCoords = ref<Array<string>>([]);
+const lastSelectedCoord = ref('');
+const selectedCoordHistory = ref<Array<string>>([]);
 
 const onResize = (event: ResizeObserverEntry[]) => {
   const { width, height } = event[0].contentRect;
@@ -19,7 +20,9 @@ const onClickBoard = ((event: MouseEvent) => {
   const column = String.fromCharCode('a'.charCodeAt(0) + Math.trunc(event.offsetX / Math.max(boardDimension, 1) * 8));
   const row = 8 - Math.trunc(event.offsetY / Math.max(boardDimension, 1) * 8);
   const coord = column.concat(row.toString());
-  selectedCoords.value.unshift(coord);
+
+  selectedCoordHistory.value.unshift(coord);
+  lastSelectedCoord.value = coord;
 })
 
 onMounted(() => {
@@ -66,12 +69,9 @@ onUnmounted(() => {
             <text x="1.5" y="4.25" font-size="3.5" class="dark-square">8</text>
           </svg>
         </div>
-        <div id="board-background-labels">
-          <p></p>
-        </div>
       </div>
     </div>
-    <Sidebar id="sidebar" :clickedCoords="selectedCoords" />
+    <Sidebar id="sidebar" :coordHistory="selectedCoordHistory" />
   </div>
 </template>
 
@@ -100,6 +100,14 @@ onUnmounted(() => {
   width: 100%;
   max-width: calc(100vh - 2rem);
   flex-grow: 1;
+}
+
+#board-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #board {

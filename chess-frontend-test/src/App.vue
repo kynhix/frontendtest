@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import ChessBoard from './components/ChessBoard.vue'
+import ChessBoardWithSidebar from './components/ChessBoardWithSidebar.vue'
 </script>
 
 <template>
   <main id="layout">
-    <ChessBoard />
+    <ChessBoardWithSidebar />
   </main>
 </template>
 

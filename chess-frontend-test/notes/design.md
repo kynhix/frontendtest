@@ -28,6 +28,10 @@ information should always be the most visible to the user.
 Displays a **friendly** message to the user when empty.
 This will hopefully encourage the user to interact with the board.
 
+Should be one contiguous scroll on mobile. There should be no separate scroll bar inside
+of the sidebar when in mobile view. This is a much better UX than having
+to scroll down to the sidebar, and then having to scroll within the sidebar.
+
 ## Other
 
 I tend to use flexbox for default display. Flexbox is just amazing.
