@@ -20,6 +20,8 @@ I do not want the user to have to scroll to see the whole board.
 Yields space to sidebar. Sidebars should be a constant size,
 unless on mobile layout.
 
+Background should utilize SVG text in order to maintain proportions on all resolutions.
+
 ## Sidebar
 
 Displays the most recent action at the *top*. The most relevant
@@ -29,7 +31,7 @@ Displays a **friendly** message to the user when empty.
 This will hopefully encourage the user to interact with the board.
 
 Should be one contiguous scroll on mobile. There should be no separate scroll bar inside
-of the sidebar when in mobile view. This is a much better UX than having
+of the sidebar when in mobile view. This is much better UX than having
 to scroll down to the sidebar, and then having to scroll within the sidebar.
 
 When a square is clicked and it is the same as the previous square clicked, it will *not*

@@ -9,7 +9,7 @@ const props = defineProps({
     <h2 id="sidebar-title">Selection History</h2>
     <div id="sidebar-history">
       <p v-if="!coordHistory || coordHistory?.length == 0" class="fadein-top-down">Looks like you haven't selected any
-        coordinates yet. Click a coordinate on the board to add it to your history.</p>
+        squares yet. Click a square on the board to add it to your history.</p>
       <p v-else v-for="(coord, index) in coordHistory" :key="coordHistory.length - index"
         class="fadein-top-down fit-content">
         <span>{{ `${coordHistory.length - index}. ` }}</span>
@@ -31,6 +31,7 @@ const props = defineProps({
 }
 
 #sidebar-title {
+  color: rgb(60, 60, 60);
   font-weight: 700;
   padding: 1rem;
   background: rgb(220, 220, 220);
